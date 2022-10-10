@@ -1,3 +1,4 @@
+
 {% extends "encyclopedia/layout.html" %}
 
 {% block title %}
@@ -5,11 +6,15 @@
 {% endblock %}
 
 {% block body %}
+
+{% load md %}
+
+
 <form method="GET" action="{% url 'editpage' title%}">
     {%  csrf_token %}
 <button type="submit" class="btn btn-primary">Edit</button>
 </form>
- <h1> {{ title}} </h1>
- <p>{{entry}}</p>
+ <h1> {{ title | markdown | safe }} </h1>
+ <p>{{ entry | markdown | safe  }}</p>
 
 {% endblock %}

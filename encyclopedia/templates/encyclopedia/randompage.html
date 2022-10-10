@@ -5,8 +5,8 @@
 {% endblock %}
 
 {% block body %}
-
- <h1> {{ title}} </h1>
- <p>{{entry}}</p>
+ {% load md %}
+ <h1> {{ title | markdown | safe }} </h1>
+ <p>{{entry | markdown | safe }}</p>
 
 {% endblock %}
