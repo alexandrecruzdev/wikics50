@@ -24,7 +24,7 @@ def similarpages(request,title):
 
     if len(similares) <= 0:
          return render(request,'encyclopedia/entrynotfound.html',{
-        'message': 'This page not exist'
+        'message': 'Page not found!'
         })
     
     return render(request,'encyclopedia/similarpages.html',{
@@ -67,9 +67,10 @@ def newpage(request):
             
             if title_exist:
                 return render(request,'encyclopedia/errorpage.html', {
-                    'message':'Titulo já cadastrado!'
+                    'message':'This title has already been registered!'
                 })
             else:
+                title = title.capitalize()
                 util.save_entry(title,content)
                 return HttpResponseRedirect(reverse('get_encyclopedia',args=[title]))
             
@@ -98,6 +99,8 @@ def get_encyclopedia(request,title):
             'title': title,
             'entry': entry,
             })
+        return HttpResponseRedirect(reverse('similarpages', args=[title]))
+
        
     
     if request.method == 'POST':
